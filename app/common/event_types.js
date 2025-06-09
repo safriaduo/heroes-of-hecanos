@@ -94,6 +94,7 @@ const EVENTS = {
   start_challenge: 'start_challenge',
   start_single_player: 'start_single_player',
   start_boss_battle: 'start_boss_battle',
+  start_auto_battle: 'start_auto_battle',
   start_replay: 'start_replay',
 
   // show ui

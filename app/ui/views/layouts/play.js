@@ -19,6 +19,7 @@ var DeckSelectRankedCompositeView = require('app/ui/views/composite/deck_select_
 var DeckSelectUnrankedCompositeView = require('app/ui/views/composite/deck_select_unranked');
 var DeckSelectSinglePlayerCompositeView = require('app/ui/views/composite/deck_select_single_player');
 var DeckSelectBossBattleCompositeView = require('app/ui/views/composite/deck_select_boss_battle');
+var DeckSelectAutoBattleCompositeView = require('app/ui/views/composite/deck_select_auto_battle');
 var DeckSelectSandboxCompositeView = require('app/ui/views/composite/deck_select_sandbox');
 var DeckSelectFriendlyCompositeView = require('app/ui/views/composite/deck_select_friendly');
 var PlayModeSelectCompositeView = require('app/ui/views/composite/play_mode_select');
@@ -100,6 +101,8 @@ var PlayLayout = Backbone.Marionette.LayoutView.extend({
       showPromise = this.modeRegion.show(new ArenaLayout());
     } else if (playModeIdentifier === SDK.PlayModes.BossBattle) {
       showPromise = this.modeRegion.show(new DeckSelectBossBattleCompositeView({ model: new Backbone.Model(), collection: new VirtualCollection(new DecksCollection()) }));
+    } else if (playModeIdentifier === SDK.PlayModes.AutoBattle) {
+      showPromise = this.modeRegion.show(new DeckSelectAutoBattleCompositeView({ model: new Backbone.Model(), collection: new VirtualCollection(new DecksCollection()) }));
     } else if (playModeIdentifier === SDK.PlayModes.Sandbox) {
       showPromise = this.modeRegion.show(new DeckSelectSandboxCompositeView({ model: new Backbone.Model(), collection: new VirtualCollection(new DecksCollection()) }));
     } else if (playModeIdentifier === SDK.PlayModes.Developer && !UtilsEnv.getIsInProduction()) {
