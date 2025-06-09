@@ -28,6 +28,7 @@ CONFIG = require('../../../../app/common/config')
 t = require 'tcomb-validation'
 validators = require '../../../validators'
 createSinglePlayerGame = require '../../../lib/create_single_player_game'
+createAutoBattleGame = require '../../../lib/create_auto_battle_game'
 validatorTypes = require '../../../validators/types'
 UtilsGameSession = require '../../../../app/common/utils/utils_game_session.coffee'
 
@@ -474,6 +475,15 @@ router.post "/boss_battle", (req, res, next) ->
     return res.status(400).json({ error: error.message })
   .catch (error) ->
     Logger.module("BOSS BATTLE").error "ERROR: Request.post /boss_battle #{userId} failed!".red
+    return next(error)
+
+router.post "/auto_battle", (req, res, next) ->
+  userId = req.user.d.id
+  createAutoBattleGame(userId)
+  .then (responseData) ->
+    res.status(200).json(responseData)
+  .catch (error) ->
+    Logger.module("AUTO BATTLE").error "ERROR: Request.post /auto_battle #{userId} failed!".red
     return next(error)
 
 router.post "/share_replay", (req, res, next) ->

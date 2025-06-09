@@ -110,6 +110,15 @@ class PlayModeFactory
         isHiddenInUI: true
       }
 
+      pm[PlayModes.AutoBattle] = {
+        id: PlayModes.AutoBattle,
+        name: "Auto Battle",
+        description: "Battle pets fight automatically",
+        img: RSX.play_mode_sandbox.img,
+        enabled: true
+        isHiddenInUI: false
+      }
+
       pm[PlayModes.Friend] = {
         id: PlayModes.Friend,
         name: "Friendly Match",

@@ -6,6 +6,7 @@ class PlayModes
   @Casual: "casual"
   @Gauntlet: "gauntlet"
   @BossBattle: "boss_battle"
+  @AutoBattle: "auto_battle"
   @Sandbox: "sandbox"
   @Developer: "developer"
   @Friend: "friendly"

@@ -1802,6 +1802,32 @@ App._startBossBattleGame = (myPlayerDeck, myPlayerFactionId, myPlayerGeneralId, 
     .catch (errorMessage) ->
       return App._error(if errorMessage? then "Failed to start boss battle: " + errorMessage)
 
+App._startAutoBattleGame = () ->
+  if ChatManager.getInstance().getStatusIsInBattle()
+    Logger.module("APPLICATION").log("App._startAutoBattleGame -> cannot start game when already in a game!")
+    return
+
+  Logger.module("APPLICATION").log("App._startAutoBattleGame")
+  Analytics.page("Auto Battle", { path: "/#auto_battle" })
+  NavigationManager.getInstance().requestUserTriggeredNavigationLocked(App._userNavLockId)
+  ChatManager.getInstance().setStatus(ChatManager.STATUS_GAME)
+
+  autoBattlePromise = new Promise((resolve, reject) ->
+    request = $.ajax
+      url: process.env.API_URL + '/api/me/games/auto_battle'
+      type: 'POST'
+      contentType: 'application/json'
+      dataType: 'json'
+
+    request.done (res) -> resolve(res)
+    request.fail (jqXHR) -> reject(jqXHR and jqXHR.responseJSON and (jqXHR.responseJSON.error or jqXHR.responseJSON.message) or "Connection error. Please retry.")
+  )
+
+  return autoBattlePromise.then (gameListingData) ->
+    App._joinGame(gameListingData)
+  .catch (errorMessage) ->
+    return App._error(if errorMessage? then "Failed to start auto battle: " + errorMessage)
+
 #
 # --- Replays ---- #
 #
@@ -3390,6 +3416,7 @@ App.bindEvents = () ->
   EventBus.getInstance().on(EVENTS.start_challenge, App._startGameWithChallenge, App)
   EventBus.getInstance().on(EVENTS.start_single_player, App._startSinglePlayerGame, App)
   EventBus.getInstance().on(EVENTS.start_boss_battle, App._startBossBattleGame, App)
+  EventBus.getInstance().on(EVENTS.start_auto_battle, App._startAutoBattleGame, App)
   EventBus.getInstance().on(EVENTS.start_replay, App._startGameForReplay, App)
   EventBus.getInstance().on(EVENTS.show_free_card_of_the_day, App.showFreeCardOfTheDayReward, App)
   EventBus.getInstance().on(EVENTS.discord_spectate, App.onDiscordSpectate, App)
