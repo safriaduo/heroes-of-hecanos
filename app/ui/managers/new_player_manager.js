@@ -198,6 +198,8 @@ var NewPlayerManager = Manager.extend({
       return this.canPlayBossBattle();
     } else if (playMode == SDK.PlayModes.Sandbox) {
       return this.canPlaySandbox();
+    } else if (playMode == SDK.PlayModes.AutoBattle) {
+      return true;
     } else if (playMode == SDK.PlayModes.Developer) {
       return true;// Developer is disabled for players
     } else {
