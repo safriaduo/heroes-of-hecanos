@@ -30,7 +30,7 @@ Since we don't want to generate access keys for the root user, we should create
 a limited IAM user and access keys.
 
 Create a `terraform` user with an Access Key (no password), and attach
-[this IAM policy](iamPolicy.json) to the user.
+the IAM policy under the Terraform folder to the user.
 
 This policy includes all permissions needed to create a staging environment.
 
@@ -45,6 +45,8 @@ put its state files in. Since there is a bit of a "chicken and egg" problem
 with the remote state provider configuration and the bucket itself, go ahead
 and create this manually in the UI. Give it a _globally unique_ name, and leave
 all other settings at the default values.
+
+Notes: use only us-east-1 as region. I tried Singapore, but there were some issues.
 
 ## Initializing Terraform for your AWS account
 
@@ -95,6 +97,8 @@ You can use `scripts/create-ssm-secret.sh` for this purpose. For the Firebase
 private key, you may find it easier to put the private key in a file, and
 reference it as `file://myPrivateKey.txt` in the script.
 
+Notes: You can also create them directly inside the AWS console. 
+
 ## Configuring Terraform for your AWS Account
 
 Once the providers are configured and secrets have been created in AWS SSM
@@ -115,6 +119,8 @@ To fully populate this file, you'll need several pieces of information
 regarding your AWS account, domain names, and Firebase project. For a list of
 the keys expected in this file, look at `staging/variables.tf` where they are
 defined.
+
+Notes: the SSH variable can be generated inside the Key Pairs section inside AWS console. To get the public key you can extract it from the private key using key-gen (bash tools)
 
 ## Creating a Staging Envinroment
 
