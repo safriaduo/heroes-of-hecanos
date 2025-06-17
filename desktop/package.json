@@ -1,8 +1,7 @@
 {
-  "name": "duelyst-desktop",
-  "productName": "Duelyst",
-  "license": "CC0-1.0",
-  "version": "1.97.13",
+  "name": "heroes-of-hecanos-desktop",
+  "productName": "Heroes of Hecanos",
+  "version": "2.0.0",
   "main": "desktop.js",
   "dependencies": {
     "electron-debug": "^2.0.0",
