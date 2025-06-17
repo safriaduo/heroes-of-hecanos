@@ -7,9 +7,9 @@ if [ -z $version ] || [ -z $registry ]; then
 	exit 1
 fi
 
-if [ $(basename $(pwd)) != 'duelyst' ]; then
-	echo "Run this from the repo root."
-	exit 1
+if [ $(basename $(pwd)) != 'heroes-of-hecanos' ]; then
+        echo "Run this from the repo root."
+        exit 1
 fi
 
 for svc in api game migrate sp worker; do
