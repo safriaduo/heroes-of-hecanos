@@ -59,11 +59,9 @@ scale to twice that amount at 8 vCPU and 4GB of memory.
 
 Based on these figures, an instance type with 2 vCPU and 1GB of memory would be
 suitable, as we can scale between 2-4 of these to handle our traffic. AWS
-offers `t3.micro` and `t4g.micro` instances in this configuration. The EC2 Free
+offers `t3.micro` instances in this configuration. The EC2 Free
 Tier includes one `t3.micro` for 12 months, with each additional costing around
-$8/mo. The `t4g.micro` instance uses ARM processors, and instead costs around
-$6/mo. When running 4 instances, these end up at approximately the same total
-cost. The `t` series instances are considered "burstable" instances, which can
+$8/mo. This instance type uses x86_64 processors. The `t` series instances are considered "burstable" instances, which can
 provide full compute power for a little over two hours before being throttled.
 With a low-traffic service, this is a non-issue, as running at less than full
 capacity will "reset" this timer.
@@ -78,8 +76,8 @@ works well with our API and Worker services, but 2 minutes is generally not
 long enough to allow in-progress games to finish. However, we can use Spot
 instances in staging, where losing games is not a big deal.
 
-In summary, running two `t4g.micro` Spot instances to power a staging ECS
-cluster would cost about $4 per month.
+In summary, running two `t3.micro` Spot instances to power a staging ECS
+cluster would cost about $5 per month.
 
 ### EBS Storage Pricing ($2/mo)
 
@@ -116,7 +114,7 @@ environment:
 
 Postgres:
 
-- AWS RDS provides one free `db.t4g.micro` instance per AWS account.
+- AWS RDS provides one free `db.t3.micro` instance per AWS account.
 - This instance type has 2 vCPU, 1GB of memory, and 20GB of storage.
 - 20GB of backups are also included for free.
 - After the Free Tier expires, this is around $12/mo
@@ -132,7 +130,7 @@ Redis:
 In order to avoid the $24/mo in billing after the Free Tier expires, we can run
 Redis and Postgres in ECS instead. This comes with its own costs, including:
 
-- One `t4g.micro` Spot instance to provide the compute ($1.83/mo)
+- One `t3.micro` Spot instance to provide the compute ($2.25/mo)
 - One DNS hosted zone for service discovery via AWS CloudMap ($0.50/mo)
 - One 8GB EBS disk for persisting Postgres data across containers ($0.64/mo)
 - 8GB EBS disk snapshots for backups ($0.40/mo each)

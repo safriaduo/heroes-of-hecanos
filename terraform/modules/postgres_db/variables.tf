@@ -10,7 +10,7 @@ variable "postgres_version" {
 
 variable "instance_type" {
   type    = string
-  default = "db.t4g.micro"
+  default = "db.t3.micro"
 }
 
 variable "storage" {

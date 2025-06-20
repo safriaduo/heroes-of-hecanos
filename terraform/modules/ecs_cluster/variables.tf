@@ -15,7 +15,7 @@ variable "subnets" {
 variable "architecture" {
   type        = string
   description = "The machine architecture to use for ECS-EC2 instances (amd64 or arm64)."
-  default     = "arm64"
+  default     = "amd64"
 }
 
 variable "use_custom_ami" {
@@ -33,7 +33,7 @@ variable "custom_ami_id" {
 variable "instance_type" {
   type        = string
   description = "The instance type to use for ECS-EC2 instances."
-  default     = "t4g.micro"
+  default     = "t3.micro"
 }
 
 variable "root_volume_size" {
