@@ -14,7 +14,8 @@ Build a container image:
 ```
 # <service> should be one of ('api', 'game', 'sp', 'worker')
 # <version> should match the latest git release; defaults to 'testing'
-scripts/build_container.sh <service> <version>
+# Optional PLATFORM can be set to cross-build (e.g. linux/arm64)
+PLATFORM=linux/arm64 scripts/build_container.sh <service> <version>
 ```
 
 Test a container image:
