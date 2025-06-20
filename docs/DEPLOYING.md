@@ -85,12 +85,12 @@ for all Duelyst services:
 
 ```bash
 # From the repo root:
-scripts/release_containers.sh <version> <ecr-registry-id>
+scripts/release_containers.sh <version> <ecr-registry-id> [platform]
 ```
 
 With the arguments populated, the command might look like this:
 ```
-scripts/release_containers.sh 1.2.3 abcd1234
+scripts/release_containers.sh 1.2.3 abcd1234 linux/arm64
 ```
 
 The script will first build the base Node.js image used by all services, and
