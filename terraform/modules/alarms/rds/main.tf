@@ -1,6 +1,6 @@
 locals {
   memory_available = {
-    "db.t4g.micro" = 1.0 * 1000 * 1000 * 1000 # Bytes.
+    "db.t3.micro" = 1.0 * 1000 * 1000 * 1000 # Bytes.
   }
 }
 

@@ -12,7 +12,7 @@ variable "about_text" {
 variable "architectures" {
   type        = list(string)
   description = "The CPU architectures of images in this ECR repository."
-  default     = ["ARM 64"]
+  default     = ["x86_64"]
 }
 
 variable "description" {
